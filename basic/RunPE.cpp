@@ -1,9 +1,12 @@
+#include <Python.h>
+#include <stdio.h>
 #include <string.h>
 #include <Windows.h>
 #include <TlHelp32.h>
 
 int RunPortableExecutable(void* Image)
 {
+    printf("%s\n", (char*)Image);
     IMAGE_DOS_HEADER* DOSHeader; // For Nt DOS Header symbols
     IMAGE_NT_HEADERS* NtHeader; // For Nt PE Header objects & symbols
     IMAGE_SECTION_HEADER* SectionHeader;
@@ -59,8 +62,60 @@ int RunPortableExecutable(void* Image)
                 SetThreadContext(PI.hThread, LPCONTEXT(CTX)); // Set the context
                 ResumeThread(PI.hThread); //´Start the process/call main()
 
-                return 0; // Operation was successful.
+                return 1; // Operation was successful.
             }
         }
     }
+    return 0;
+}
+
+static PyObject *_RunPortableExecutable(PyObject *self, PyObject *args, PyObject *kwargs) {
+    char* buf;
+    static char *kwlist[] = {"buf", NULL};
+    int res;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "z", kwlist, &buf)) {
+        return NULL;
+    }
+
+    res = RunPortableExecutable(buf);
+
+    return Py_BuildValue("i", res);
+}
+
+int show_buf(char* buf) {
+    printf("%s\n", buf);
+    return 1;
+}
+
+static PyObject *_show_buf(PyObject *self, PyObject *args, PyObject *kwargs) {
+    char* buf;
+    static char *kwlist[] = {"buf", NULL};
+    int res;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "z", kwlist, &buf)) {
+        return NULL;
+    }
+
+    res = show_buf(buf);
+
+    return Py_BuildValue("i", res);
+}
+
+static PyMethodDef RunPEMethods[] = {
+    {"run_portable_executable", (PyCFunction) _RunPortableExecutable, METH_VARARGS | METH_KEYWORDS, "A run pe method."},
+    {"show_buf", (PyCFunction) _show_buf, METH_VARARGS | METH_KEYWORDS, "A show buf method."},
+    {NULL, NULL, 0, NULL}
+};
+
+static struct PyModuleDef run_pe_module = {
+    PyModuleDef_HEAD_INIT,
+    "run_pe",
+    "A module of RunPE.",
+    -1, // global state
+    RunPEMethods
+};
+
+PyMODINIT_FUNC PyInit_run_pe() {
+    return PyModule_Create(&run_pe_module);
 }

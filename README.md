@@ -5,10 +5,17 @@
 ## ctypes
 
 ### build
-`mingw32-gcc -shared -fPIC RunPE.cpp -o RunPE.dll`
+`mingw32-gcc -shared -fPIC RunPE.cpp -o RunPE.dll`  
 
 ### Note
-Build的bit要對應相同bit的python
+Build的bit要對應相同bit的python  
+
+## basic
+
+目前會發生Segmentation fault  
+
+### build
+`python setup.py build_ext --inplace`  
 
 
 ## Reference
@@ -17,3 +24,4 @@ Build的bit要對應相同bit的python
 [RunPE: How to hide code behind a legit process](https://www.adlice.com/runpe-hide-code-behind-legit-process/)  
 [codecrack3/Run-PE---Run-Portable-Executable-From-Memory](https://github.com/codecrack3/Run-PE---Run-Portable-Executable-From-Memory)  
 [RE for Beginngers](https://www.begin.re/the-workshop?fbclid=IwAR2pdyq8amDbqn2MNq8knMo73da6FZ_UHySEIBPQcTlPlaB4RTmZwOlEAtU)  
+[Parsing arguments and building values](https://docs.python.org/3/c-api/arg.html)  
