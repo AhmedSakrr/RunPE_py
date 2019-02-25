@@ -18,6 +18,9 @@ Build的bit要對應相同bit的python
 `python setup.py build_ext --inplace`  
 
 
+## Note
+在RunPE中有使用到Register，記得依據不同bit做變換  
+
 ## Reference
 
 [如Py似C：Python 與 C 的共生法則](https://medium.com/pyladies-taiwan/如py似c-python-與-c-的共生法則-568add0ba5b8)  
