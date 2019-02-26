@@ -6,7 +6,6 @@
 
 int RunPortableExecutable(void* Image)
 {
-    printf("%s\n", (char*)Image);
     IMAGE_DOS_HEADER* DOSHeader; // For Nt DOS Header symbols
     IMAGE_NT_HEADERS* NtHeader; // For Nt PE Header objects & symbols
     IMAGE_SECTION_HEADER* SectionHeader;
@@ -16,7 +15,6 @@ int RunPortableExecutable(void* Image)
 
     CONTEXT* CTX;
 
-    DWORD* ImageBase; //Base address of the image
     void* pImageBase; // Pointer to the image base
 
     int count;
@@ -74,7 +72,7 @@ static PyObject *_RunPortableExecutable(PyObject *self, PyObject *args, PyObject
     static char *kwlist[] = {"buf", NULL};
     int res;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "z", kwlist, &buf)) {
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "y*", kwlist, &buf)) {
         return NULL;
     }
 

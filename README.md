@@ -4,21 +4,22 @@
 
 ## ctypes
 
-### build
+#### build
+
 `mingw32-gcc -shared -fPIC RunPE.cpp -o RunPE.dll`  
 
-### Note
+#### Note
+
 Build的bit要對應相同bit的python  
 
 ## basic
 
-目前會發生Segmentation fault  
+#### build
 
-### build
 `python setup.py build_ext --inplace`  
 
-
 ## Note
+
 在RunPE中有使用到Register，記得依據不同bit做變換  
 
 ## Reference

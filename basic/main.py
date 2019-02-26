@@ -2,10 +2,15 @@ from run_pe import show_buf, run_portable_executable
 
 
 content = b""
-with open("D:\\self\\program\\c++\\a\\wrapper\\winmine.exe", "rb") as f:
+with open("winmine.exe", "rb") as f:
     byte = f.read(1)
     while byte != b"":
         content += byte
         byte = f.read(1)
 
-print(run_portable_executable(str(content)))
+content = bytearray(content)
+content[0x2afb] = 0x30
+content[0x2afc] = 0x81
+content = bytes(content)
+
+print(run_portable_executable(content))

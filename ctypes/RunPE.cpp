@@ -13,7 +13,6 @@ int RunPortableExecutable(void* Image)
 
     CONTEXT* CTX;
 
-    DWORD* ImageBase; //Base address of the image
     void* pImageBase; // Pointer to the image base
 
     int count;
