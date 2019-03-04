@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <TlHelp32.h>
 
+// Reference: https://github.com/codecrack3/Run-PE---Run-Portable-Executable-From-Memory
 int RunPortableExecutable(void* Image)
 {
     IMAGE_DOS_HEADER* DOSHeader; // For Nt DOS Header symbols
